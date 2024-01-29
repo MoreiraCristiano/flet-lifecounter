@@ -14,16 +14,18 @@ from flet import (
 
 
 class LifePointsContainer(UserControl):
-    def __init__(self, initial_life_points):
+    def __init__(self, initial_life_points, rotate):
         super().__init__()
         self.initial_life_points = initial_life_points
         self.life_points_counter = Text(
             value=self.initial_life_points, text_align='center', size=70
         )
+        self.rotate = rotate
 
     def build(self):
         return Column(
             # expand=True,
+            rotate=self.rotate,
             alignment=MainAxisAlignment.SPACE_BETWEEN,
             controls=[
                 Row(
