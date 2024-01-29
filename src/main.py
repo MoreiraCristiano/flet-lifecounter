@@ -53,8 +53,33 @@ class LifePointsContainer(ft.UserControl):
                 ft.IconButton(ft.icons.REMOVE, on_click=self.decrement_life_by_one),
                 self.life_points_counter,
                 ft.IconButton(ft.icons.ADD, on_click=self.increment_life_by_one),
+                ft.IconButton(ft.icons.EDIT, on_click=self.set_initial_life_points),
             ],
         )
+
+    def set_initial_life_points(self, event):
+        initial_life_field = ft.TextField(label="Initial life points")
+
+        def set_initial_life(event, initial_life):
+            self.life_points_counter.value = int(initial_life)
+            event.page.close_dialog()
+            self.update()
+
+        dlg_modal = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Life points"),
+            content=ft.Column([initial_life_field], tight=True),
+            actions=[
+                ft.ElevatedButton(
+                    "Yes",
+                    on_click=lambda e: set_initial_life(e, initial_life_field.value),
+                ),
+                ft.ElevatedButton("No", on_click=lambda e: e.page.close_dialog()),
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+
+        event.page.show_dialog(dlg_modal)
 
     def increment_life_by_one(self, event):
         self.life_points_counter.value += 1
