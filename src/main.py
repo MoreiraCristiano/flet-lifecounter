@@ -13,17 +13,17 @@ class DecreaseButton(ft.UserControl):
 
 
 class DecreaseContainerButtons(ft.UserControl):
-    def __init__(self):
+    def __init__(self, options):
         super().__init__()
+        self.options = options
 
     def build(self):
         return ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_AROUND,
-            # expand=True,
             controls=[
-                DecreaseButton('5'),
-                DecreaseButton('10'),
-                DecreaseButton('15'),
+                DecreaseButton(option)
+                for option in self.options
+                if self.options is not None
             ],
         )
 
@@ -65,11 +65,11 @@ def main(page: ft.Page):
 
     app = ft.Column(
         [
-            DecreaseContainerButtons(),
+            DecreaseContainerButtons((5, 10, 15)),
             LifePointsContainer(20),
             ft.Divider(color='white'),
             LifePointsContainer(25),
-            DecreaseContainerButtons(),
+            DecreaseContainerButtons((5, 10, 15)),
         ],
         alignment=ft.MainAxisAlignment.SPACE_AROUND,
         expand=True,
