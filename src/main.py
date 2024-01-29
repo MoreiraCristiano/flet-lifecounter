@@ -2,26 +2,35 @@ import flet as ft
 
 
 class DecreaseButton(ft.UserControl):
-    def __init__(self, life_points):
+    def __init__(self, life_points, lp_container):
         super().__init__()
         self.life_points = life_points
+        self.lp_container = lp_container
 
     def build(self):
         return ft.Container(
-            ft.ElevatedButton(f'-{self.life_points}', scale=1.2), padding=20
+            ft.ElevatedButton(
+                f'-{self.life_points}',
+                scale=1.2,
+                on_click=lambda e: self.lp_container.decrement_life(
+                    e, self.life_points
+                ),
+            ),
+            padding=20,
         )
 
 
 class DecreaseContainerButtons(ft.UserControl):
-    def __init__(self, options):
+    def __init__(self, options, lp_container):
         super().__init__()
         self.options = options
+        self.lp_container = lp_container
 
     def build(self):
         return ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_AROUND,
             controls=[
-                DecreaseButton(option)
+                DecreaseButton(option, lp_container=self.lp_container)
                 for option in self.options
                 if self.options is not None
             ],
@@ -55,6 +64,10 @@ class LifePointsContainer(ft.UserControl):
         self.life_points_counter.value += 1
         self.update()
 
+    def decrement_life(self, event, decrement_value):
+        self.life_points_counter.value -= decrement_value
+        self.update()
+
 
 def main(page: ft.Page):
     page.window_width = 480
@@ -63,13 +76,15 @@ def main(page: ft.Page):
     page.vertical_alignment = 'center'
     page.update()
 
+    lp_containers = (LifePointsContainer(20), LifePointsContainer(20))
+
     app = ft.Column(
         [
-            DecreaseContainerButtons((5, 10, 15)),
-            LifePointsContainer(20),
+            DecreaseContainerButtons((5, 10, 15), lp_containers[0]),
+            lp_containers[0],
             ft.Divider(color='white'),
-            LifePointsContainer(25),
-            DecreaseContainerButtons((5, 10, 15)),
+            lp_containers[1],
+            DecreaseContainerButtons((5, 10, 15), lp_containers[1]),
         ],
         alignment=ft.MainAxisAlignment.SPACE_AROUND,
         expand=True,
