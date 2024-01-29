@@ -56,17 +56,25 @@ class LifePointsContainer(ft.UserControl):
             ],
         )
 
-    def decrement_life_by_one(self, event):
-        self.life_points_counter.value -= 1
-        self.update()
-
     def increment_life_by_one(self, event):
         self.life_points_counter.value += 1
         self.update()
 
+    def decrement_life_by_one(self, event):
+        if self.life_points_counter.value <= 0:
+            self.life_points_counter.value = 0
+            self.update()
+        else:
+            self.life_points_counter.value -= 1
+            self.update()
+
     def decrement_life(self, event, decrement_value):
-        self.life_points_counter.value -= decrement_value
-        self.update()
+        if self.life_points_counter.value - decrement_value <= 0:
+            self.life_points_counter.value = 0
+            self.update()
+        else:
+            self.life_points_counter.value -= decrement_value
+            self.update()
 
 
 def main(page: ft.Page):
