@@ -22,14 +22,24 @@ class LifePointsContainer(UserControl):
         )
 
     def build(self):
-        return Row(
+        return Column(
             # expand=True,
-            alignment="center",
+            alignment=MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                IconButton(icons.REMOVE, on_click=self.decrement_life_by_one),
-                self.life_points_counter,
-                IconButton(icons.ADD, on_click=self.increment_life_by_one),
-                IconButton(icons.EDIT, on_click=self.set_initial_life_points),
+                Row(
+                    controls=[
+                        IconButton(icons.REMOVE, on_click=self.decrement_life_by_one),
+                        self.life_points_counter,
+                        IconButton(icons.ADD, on_click=self.increment_life_by_one),
+                    ],
+                    alignment='center',
+                ),
+                Row(
+                    controls=[
+                        IconButton(icons.EDIT, on_click=self.set_initial_life_points)
+                    ],
+                    alignment='center',
+                ),
             ],
         )
 
