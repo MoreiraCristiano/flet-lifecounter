@@ -80,7 +80,9 @@ class LifePointsContainer(ft.UserControl):
 def main(page: ft.Page):
     page.window_width = 480
     page.window_height = 800
-    # page.window_always_on_top = True
+    page.title = 'Simple life points counter'
+    page.window_resizable = False
+    page.window_maximizable = False
     page.vertical_alignment = 'center'
     page.update()
 
