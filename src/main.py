@@ -1,8 +1,10 @@
 import flet as ft
 from components.LifePointsContainer import LifePointsContainer
 from components.DecreaseContainerButtons import DecreaseContainerButtons
+from math import pi
 
-ROTATE_90 = 3.14 / 2
+
+ROTATE_90 = pi / 2
 
 
 def main(page: ft.Page):
@@ -19,13 +21,13 @@ def main(page: ft.Page):
 
     app = ft.Column(
         [
-            DecreaseContainerButtons((5, 10, 15), lp_containers[0], ROTATE_90),
+            DecreaseContainerButtons((5, 10, 15), lp_containers[0], pi),
             lp_containers[0],
-            ft.Divider(color='white'),
+            ft.Divider(color='#505050', thickness=2),
             lp_containers[1],
             DecreaseContainerButtons((5, 10, 15), lp_containers[1], 0),
         ],
-        alignment=ft.MainAxisAlignment.SPACE_AROUND,
+        alignment=ft.MainAxisAlignment.CENTER,
         expand=True,
     )
 

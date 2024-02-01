@@ -18,7 +18,7 @@ class LifePointsContainer(UserControl):
         super().__init__()
         self.initial_life_points = initial_life_points
         self.life_points_counter = Text(
-            value=self.initial_life_points, text_align='center', size=70
+            value=self.initial_life_points, text_align='center', size=125
         )
         self.rotate = rotate
 

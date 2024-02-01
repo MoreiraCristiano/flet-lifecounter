@@ -11,10 +11,11 @@ class DecreaseContainerButtons(UserControl):
 
     def build(self):
         return Row(
-            rotate=self.rotate,
             alignment=MainAxisAlignment.SPACE_AROUND,
             controls=[
-                DecreaseButton(option, lp_container=self.lp_container)
+                DecreaseButton(
+                    option, lp_container=self.lp_container, rotate=self.rotate
+                )
                 for option in self.options
                 if self.options is not None
             ],
