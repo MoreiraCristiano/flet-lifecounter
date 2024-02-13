@@ -12,19 +12,21 @@ from flet import (
     KeyboardType,
     FontWeight,
 )
+from math import pi
 
 
 class LifePointsContainer(UserControl):
-    def __init__(self, initial_life_points, rotate):
+    def __init__(self, initial_life_points, rotate, player):
         super().__init__()
         self.initial_life_points = initial_life_points
         self.life_points_counter = Text(
             value=self.initial_life_points,
             text_align='center',
-            size=150,
+            size=130,
             weight=FontWeight.W_300,
             rotate=rotate,
         )
+        self.player = player
 
     def set_initial_life_points(self, event):
         initial_life_field = TextField(
@@ -78,35 +80,76 @@ class LifePointsContainer(UserControl):
             self.update()
 
     def build(self):
-        return Column(
-            alignment=MainAxisAlignment.SPACE_BETWEEN,
-            controls=[
-                Row(
-                    controls=[
-                        IconButton(
-                            icons.REMOVE,
-                            on_click=self.decrement_life_by_one,
-                            icon_size=40,
-                            expand=True,
-                        ),
-                        self.life_points_counter,
-                        IconButton(
-                            icons.ADD,
-                            on_click=self.increment_life_by_one,
-                            icon_size=40,
-                            expand=True,
-                        ),
-                    ],
-                    alignment='center',
-                ),
-                Row(
-                    controls=[
-                        IconButton(
-                            icons.EDIT,
-                            on_click=self.set_initial_life_points,
-                        )
-                    ],
-                    alignment='center',
-                ),
-            ],
-        )
+
+        if self.player == 0:
+            player_zero_counter = Column(
+                alignment=MainAxisAlignment.SPACE_BETWEEN,
+                controls=[
+                    Row(
+                        controls=[
+                            IconButton(
+                                icons.EDIT,
+                                on_click=self.set_initial_life_points,
+                                rotate=pi,
+                            )
+                        ],
+                        alignment='center',
+                    ),
+                    Row(
+                        controls=[
+                            IconButton(
+                                icons.REMOVE,
+                                on_click=self.decrement_life_by_one,
+                                icon_size=40,
+                                expand=True,
+                            ),
+                            self.life_points_counter,
+                            IconButton(
+                                icons.ADD,
+                                on_click=self.increment_life_by_one,
+                                icon_size=40,
+                                expand=True,
+                            ),
+                        ],
+                        alignment='center',
+                    ),
+                ],
+            )
+
+            return player_zero_counter
+
+        if self.player == 1:
+            player_one_counter = Column(
+                alignment=MainAxisAlignment.SPACE_BETWEEN,
+                controls=[
+                    Row(
+                        controls=[
+                            IconButton(
+                                icons.REMOVE,
+                                on_click=self.decrement_life_by_one,
+                                icon_size=40,
+                                expand=True,
+                            ),
+                            self.life_points_counter,
+                            IconButton(
+                                icons.ADD,
+                                on_click=self.increment_life_by_one,
+                                icon_size=40,
+                                expand=True,
+                            ),
+                        ],
+                        alignment='center',
+                    ),
+                    Row(
+                        controls=[
+                            IconButton(
+                                icons.EDIT,
+                                on_click=self.set_initial_life_points,
+                            )
+                        ],
+                        alignment='center',
+                    ),
+                ],
+            )
+
+            return player_one_counter
