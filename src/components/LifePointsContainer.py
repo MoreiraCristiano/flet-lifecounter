@@ -10,6 +10,7 @@ from flet import (
     UserControl,
     Text,
     KeyboardType,
+    FontWeight,
 )
 
 
@@ -18,36 +19,18 @@ class LifePointsContainer(UserControl):
         super().__init__()
         self.initial_life_points = initial_life_points
         self.life_points_counter = Text(
-            value=self.initial_life_points, text_align='center', size=125
-        )
-        self.rotate = rotate
-
-    def build(self):
-        return Column(
-            # expand=True,
-            rotate=self.rotate,
-            alignment=MainAxisAlignment.SPACE_BETWEEN,
-            controls=[
-                Row(
-                    controls=[
-                        IconButton(icons.REMOVE, on_click=self.decrement_life_by_one),
-                        self.life_points_counter,
-                        IconButton(icons.ADD, on_click=self.increment_life_by_one),
-                    ],
-                    alignment='center',
-                ),
-                Row(
-                    controls=[
-                        IconButton(icons.EDIT, on_click=self.set_initial_life_points)
-                    ],
-                    alignment='center',
-                ),
-            ],
+            value=self.initial_life_points,
+            text_align='center',
+            size=150,
+            weight=FontWeight.W_300,
+            rotate=rotate,
         )
 
     def set_initial_life_points(self, event):
         initial_life_field = TextField(
-            label="Initial life points", keyboard_type=KeyboardType.NUMBER
+            label="Initial life points",
+            keyboard_type=KeyboardType.NUMBER,
+            autofocus=True,
         )
 
         def set_initial_life(event, initial_life):
@@ -93,3 +76,37 @@ class LifePointsContainer(UserControl):
         else:
             self.life_points_counter.value -= decrement_value
             self.update()
+
+    def build(self):
+        return Column(
+            alignment=MainAxisAlignment.SPACE_BETWEEN,
+            controls=[
+                Row(
+                    controls=[
+                        IconButton(
+                            icons.REMOVE,
+                            on_click=self.decrement_life_by_one,
+                            icon_size=40,
+                            expand=True,
+                        ),
+                        self.life_points_counter,
+                        IconButton(
+                            icons.ADD,
+                            on_click=self.increment_life_by_one,
+                            icon_size=40,
+                            expand=True,
+                        ),
+                    ],
+                    alignment='center',
+                ),
+                Row(
+                    controls=[
+                        IconButton(
+                            icons.EDIT,
+                            on_click=self.set_initial_life_points,
+                        )
+                    ],
+                    alignment='center',
+                ),
+            ],
+        )

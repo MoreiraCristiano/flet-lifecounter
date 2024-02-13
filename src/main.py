@@ -17,7 +17,7 @@ def main(page: ft.Page):
 
     page.update()
 
-    lp_containers = (LifePointsContainer(20, ROTATE_90), LifePointsContainer(20, 0))
+    lp_containers = (LifePointsContainer(20, pi), LifePointsContainer(20, 0))
 
     app = ft.Column(
         [

@@ -13,7 +13,7 @@ class DecreaseButton(UserControl):
             ElevatedButton(
                 f'-{self.life_points}',
                 rotate=self.rotate,
-                scale=1.2,
+                scale=1.3,
                 on_click=lambda e: self.lp_container.decrement_life(
                     e, self.life_points
                 ),
