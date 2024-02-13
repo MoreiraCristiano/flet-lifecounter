@@ -8,8 +8,6 @@ ROTATE_90 = pi / 2
 
 
 def main(page: ft.Page):
-    page.window_width = 480
-    page.window_height = 840
     page.title = 'Simple life points counter'
     page.window_resizable = False
     page.window_maximizable = False

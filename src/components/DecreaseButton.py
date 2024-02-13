@@ -18,5 +18,4 @@ class DecreaseButton(UserControl):
                     e, self.life_points
                 ),
             ),
-            padding=20,
         )
