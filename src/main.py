@@ -1,4 +1,5 @@
 import flet as ft
+from flet_core.page import ThemeMode
 from components.LifePointsContainer import LifePointsContainer
 from components.DecreaseContainerButtons import DecreaseContainerButtons
 from math import pi
@@ -14,7 +15,7 @@ def main(page: ft.Page):
     page.window_resizable = False
     page.window_maximizable = False
     page.vertical_alignment = 'center'
-
+    page.theme_mode = ThemeMode.DARK
     page.update()
 
     lp_containers = (
