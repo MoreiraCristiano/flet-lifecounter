@@ -31,6 +31,7 @@ def main(page: ft.Page):
             lp_containers[1],
             DecreaseContainerButtons((5, 10, 15), lp_containers[1], 0),
         ],
+        spacing=15,
         alignment=ft.MainAxisAlignment.CENTER,
         expand=True,
     )

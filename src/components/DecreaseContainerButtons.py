@@ -1,4 +1,4 @@
-from flet import UserControl, Row, MainAxisAlignment
+from flet import UserControl, Row, MainAxisAlignment, CrossAxisAlignment
 from .DecreaseButton import DecreaseButton
 
 

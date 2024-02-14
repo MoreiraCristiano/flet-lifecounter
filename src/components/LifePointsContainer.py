@@ -23,10 +23,11 @@ class LifePointsContainer(UserControl):
         self.page = page
 
         self.initial_life_points = initial_life_points
+
         self.life_points_counter = Text(
             value=self.initial_life_points,
             text_align='center',
-            size=130,
+            size=145,
             weight=FontWeight.W_300,
             rotate=rotate,
         )
@@ -59,6 +60,7 @@ class LifePointsContainer(UserControl):
         def set_initial_life(event, initial_life):
             try:
                 self.life_points_counter.value = int(initial_life)
+                self.initial_life_points = int(initial_life)
                 event.page.close_dialog()
                 self.update()
             except ValueError:
@@ -102,6 +104,10 @@ class LifePointsContainer(UserControl):
             self.life_points_counter.value -= decrement_value
             self.update()
 
+    def reset_life(self, event):
+        self.life_points_counter.value = self.initial_life_points
+        self.update()
+
     def build(self):
         if self.player == 0:
             player_zero_counter = Column(
@@ -113,7 +119,12 @@ class LifePointsContainer(UserControl):
                                 icons.EDIT,
                                 on_click=self.set_initial_life_points,
                                 rotate=pi,
-                            )
+                            ),
+                            IconButton(
+                                icons.REFRESH,
+                                on_click=lambda e: self.reset_life(e),
+                                rotate=pi,
+                            ),
                         ],
                         alignment='center',
                     ),
@@ -167,7 +178,12 @@ class LifePointsContainer(UserControl):
                             IconButton(
                                 icons.EDIT,
                                 on_click=self.set_initial_life_points,
-                            )
+                            ),
+                            IconButton(
+                                icons.REFRESH,
+                                on_click=lambda e: self.reset_life(e),
+                                rotate=pi,
+                            ),
                         ],
                         alignment='center',
                     ),
