@@ -8,6 +8,8 @@ ROTATE_90 = pi / 2
 
 
 def main(page: ft.Page):
+    page.window_width = 480
+    # page.window_height = 840
     page.title = 'Simple life points counter'
     page.window_resizable = False
     page.window_maximizable = False
@@ -15,7 +17,10 @@ def main(page: ft.Page):
 
     page.update()
 
-    lp_containers = (LifePointsContainer(20, pi, 0), LifePointsContainer(20, 0, 1))
+    lp_containers = (
+        LifePointsContainer(20, pi, 0, page),
+        LifePointsContainer(20, 0, 1, page),
+    )
 
     app = ft.Column(
         [

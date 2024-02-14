@@ -1,5 +1,6 @@
 from flet import (
     Row,
+    Audio,
     IconButton,
     icons,
     AlertDialog,
@@ -12,12 +13,15 @@ from flet import (
     KeyboardType,
     FontWeight,
 )
+from flet_core.audio import ReleaseMode
 from math import pi
 
 
 class LifePointsContainer(UserControl):
-    def __init__(self, initial_life_points, rotate, player):
+    def __init__(self, initial_life_points, rotate, player, page):
         super().__init__()
+        self.page = page
+
         self.initial_life_points = initial_life_points
         self.life_points_counter = Text(
             value=self.initial_life_points,
@@ -26,7 +30,24 @@ class LifePointsContainer(UserControl):
             weight=FontWeight.W_300,
             rotate=rotate,
         )
+
         self.player = player
+
+        self.tap_decrease_sound = Audio(
+            src='assets/tap.mp3',
+            autoplay=False,
+            volume=1,
+            release_mode=ReleaseMode.STOP,
+        )
+        self.tap_increase_sound = Audio(
+            src='assets/tap2.mp3',
+            autoplay=False,
+            volume=0.6,
+            release_mode=ReleaseMode.STOP,
+        )
+
+        self.page.overlay.append(self.tap_decrease_sound)
+        self.page.overlay.append(self.tap_increase_sound)
 
     def set_initial_life_points(self, event):
         initial_life_field = TextField(
@@ -60,6 +81,7 @@ class LifePointsContainer(UserControl):
         event.page.show_dialog(dlg_modal)
 
     def increment_life_by_one(self, event):
+        self.tap_increase_sound.play()
         self.life_points_counter.value += 1
         self.update()
 
@@ -68,6 +90,7 @@ class LifePointsContainer(UserControl):
             self.life_points_counter.value = 0
             self.update()
         else:
+            self.tap_decrease_sound.play()
             self.life_points_counter.value -= 1
             self.update()
 
@@ -80,7 +103,6 @@ class LifePointsContainer(UserControl):
             self.update()
 
     def build(self):
-
         if self.player == 0:
             player_zero_counter = Column(
                 alignment=MainAxisAlignment.SPACE_BETWEEN,
@@ -98,15 +120,15 @@ class LifePointsContainer(UserControl):
                     Row(
                         controls=[
                             IconButton(
-                                icons.REMOVE,
-                                on_click=self.decrement_life_by_one,
+                                icons.ADD,
+                                on_click=self.increment_life_by_one,
                                 icon_size=40,
                                 expand=True,
                             ),
                             self.life_points_counter,
                             IconButton(
-                                icons.ADD,
-                                on_click=self.increment_life_by_one,
+                                icons.REMOVE,
+                                on_click=self.decrement_life_by_one,
                                 icon_size=40,
                                 expand=True,
                             ),
