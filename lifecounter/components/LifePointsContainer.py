@@ -27,7 +27,7 @@ class LifePointsContainer(UserControl):
         self.life_points_counter = Text(
             value=self.initial_life_points,
             text_align='center',
-            size=145,
+            size=150,
             weight=FontWeight.W_300,
             rotate=rotate,
         )
